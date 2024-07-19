@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Viruses Detector</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .custom-alert {
+            background-color: #fff;
+            border: 2px solid #000;
+            padding: 30px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            max-width: 80%;
+            text-align: center;
+            border-radius: 10px;
+            position: relative;
+            margin: 20px 0;
+        }
+        .custom-alert-header {
+            font-size: 22px;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 10px;
+            text-align: left;
+            padding-left: 10px;
+        }
+        .custom-alert-body {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: left;
+            padding-left: 10px;
+        }
+        .custom-alert button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .custom-alert button:hover {
+            background-color: #444;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-bar-inner {
+            height: 100%;
+            width: 0;
+            background-color: #4caf50;
+            transition: width 5s linear;
+        }
+    </style>
+    <script type="text/javascript">
+        function showCustomAlert(message, callback) {
+            var alertBox = document.createElement("div");
+            alertBox.classList.add("custom-alert");
+
+            var alertHeader = document.createElement("div");
+            alertHeader.classList.add("custom-alert-header");
+            alertHeader.textContent = "Warning ⚠️";
+
+            var alertBody = document.createElement("div");
+            alertBody.classList.add("custom-alert-body");
+            alertBody.textContent = message;
+
+            var alertButton = document.createElement("button");
+            alertButton.textContent = "OK";
+            alertButton.onclick = function() {
+                document.body.removeChild(alertBox);
+                if (callback) callback();
+            };
+
+            alertBox.appendChild(alertHeader);
+            alertBox.appendChild(alertBody);
+            alertBox.appendChild(alertButton);
+
+            document.body.appendChild(alertBox);
+        }
+
+        window.onload = function() {
+            var messages = [
+                "Ms. Asthy 143 viruses have been detected in your device! Always press ok",
+                "Ang Cute mo po,always ^^",
+                "Bagay sayo yung short hair.",
+                "Crush kita ehh dapat crush modin ako😤",
+                "Ayaw mo🥺",
+                "Sige hahack ko Cp mo!!!",
+                "Eme lang dko kaya yun",
+                "Dapat talaga crush modin ako ehh 🥺😭",
+                "Allergic ka yata sa tamang tao ehh",
+                "Pagka Hahanapin mo yung tamang tao para sayo",
+                "Magtanong kalang sakin send ko sayo Yung Mapa papuntang bahay ko",
+                "Wag mo kalimutan yan☺️",
+                "Take care ",
+                "And don't forget, always wear your pretty smile 😁",
+                "Congratulations, the virus has now been removed."
+            ];
+
+            function showAlertsSequentially(index) {
+                if (index < messages.length) {
+                    showCustomAlert(messages[index], function() {
+                        showAlertsSequentially(index + 1);
+                    });
+                }
+            }
+
+            function showLoadingAlert(callback) {
+                var loadingBox = document.createElement("div");
+                loadingBox.classList.add("custom-alert");
+
+                var loadingHeader = document.createElement("div");
+                loadingHeader.classList.add("custom-alert-header");
+                loadingHeader.textContent = "Loading...";
+
+                var loadingBody = document.createElement("div");
+                loadingBody.classList.add("custom-alert-body");
+                loadingBody.textContent = "Scanning your device for viruses...";
+
+                var progressBar = document.createElement("div");
+                progressBar.classList.add("progress-bar");
+
+                var progressBarInner = document.createElement("div");
+                progressBarInner.classList.add("progress-bar-inner");
+                progressBar.appendChild(progressBarInner);
+
+                loadingBox.appendChild(loadingHeader);
+                loadingBox.appendChild(loadingBody);
+                loadingBox.appendChild(progressBar);
+
+                var overlay = document.createElement("div");
+                overlay.classList.add("overlay");
+                overlay.appendChild(loadingBox);
+                document.body.appendChild(overlay);
+
+                setTimeout(function() {
+                    progressBarInner.style.width = '100%';
+                }, 100);
+
+                setTimeout(function() {
+                    document.body.removeChild(overlay);
+                    showAlertsSequentially(0);
+                }, 5000); // 5 seconds
+            }
+
+            showLoadingAlert();
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
